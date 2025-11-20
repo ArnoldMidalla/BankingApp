@@ -1,24 +1,32 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import 'react-native-reanimated';
-
-import { useColorScheme } from '@/hooks/use-color-scheme';
-
-export const unstable_settings = {
-  anchor: '(tabs)',
-};
+import {
+  DMSans_400Regular,
+  DMSans_500Medium,
+  DMSans_700Bold,
+  DMSans_800ExtraBold,
+  useFonts,
+} from "@expo-google-fonts/dm-sans";
+import { Stack } from "expo-router";
+import "./globals.css";
 
 export default function RootLayout() {
-  const colorScheme = useColorScheme();
-
+  const [loaded] = useFonts({
+    DMSans_400Regular,
+    DMSans_500Medium,
+    DMSans_700Bold,
+    DMSans_800ExtraBold,
+  });
+  if (!loaded) return null;
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="modal" options={{ presentation: 'modal', title: 'Modal' }} />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Stack>
+      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+      {/* <Stack.Screen
+        name="Others/notifications"
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen name="articlesPage/page" options={{ headerShown: false }} />
+      <Stack.Screen name="profilePage/page" options={{ headerShown: false }} />
+      <Stack.Screen name="commentsPage/page" options={{ headerShown: false }} />
+      <Stack.Screen name="newPost/page" options={{ headerShown: false }} /> */}
+    </Stack>
   );
 }
